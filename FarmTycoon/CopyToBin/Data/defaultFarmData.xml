@@ -1,0 +1,945 @@
+
+<FarmData>
+
+<!--
+
+Scenario info.  The name, descirption, objective are just seen by the player when they start the scenario.
+The Textures is the name of the texture set that will be loaded for the scenario.
+
+-->
+
+<Scenario>
+<Name>
+Scenario Name
+</Name>
+<Descirption>
+Scenario Deciption Bla Bla Bla
+Line two
+Line three
+</Descirption>
+<Objective>
+Scenario Objective Bla Bla Bla
+Line two
+Line three
+</Objective>
+<Textures>
+DefaultTextures
+</Textures>
+</Scenario>  
+
+
+
+    <!--
+    Items
+    
+    Most game play involves workers moving items from place to place.  
+    This section contains the types of items available to the player.
+    
+    Name    		 - the name of the item (you can not have an "_" in the name)
+    Icon             - the name of the icon for the item, there should be a texture with this name in the window texture set.  (Note if the item will never appear in an inventory an icon is not needed)
+    Size             - how much room the item takes up in a building or a workers inventory  (Note if the item will never appear in an inventory size is not needed)
+    SubTypes         - the items below really specify groups of items.  The items in the same group have the same icon, size, and name, but can have different quality levels
+                       Valid subtypes:
+                       One         - There is only on sub type for this Item (the Item has no assoicated quality)
+                       Qualities   - There are ten sub types for this Item (One each for quality levels 0-9)
+                       Many        - There are many sub types each can have a different quality, and the quality of each can change.
+                                     This is used for things like cows, each cow has its own ItemType.    
+            
+    Tags			  - one or more tags can be applied to an item.  Some tags have special meaning as descibed below, other object may work on itmes with certain tags.	 	 	 
+                       Special Tags:	         
+                       All              - this tag gets applied to all items automatically (even if you dont set it below)	 
+                       AnimalDrink      - can be put in a trough, if that trough has AnimalFood in it the food items will be removed
+                       AnimalFood       - can be put in a trough, if that trough has AnimalDrink in it the drink items will be removed
+                       Spray            - can be selected by the spray action to be sprayed on a field.
+                       Seed             - can be selected by the plant action to be planted in a field.	 
+                       Store_           - any tag starting with "Store_" will be shown in the item store.  The part after the "_" will be the catagory of item in the store.  The catagory name will be used as the name of the texture to show in the store window.
+    
+    
+    -->
+    
+    
+    <Item Name='Wheat Seed'       SubType='One'           Icon='wheat_seed'     Size='1'       Tags='Seed, Store_CropSeed' />
+    <Item Name='Apple Seed'       SubType='One'           Icon='apple_seed'     Size='1'       Tags='Seed, Store_TreeSeed' />
+ 
+    <Item Name='Fertilizer'       SubType='One'           Icon='fertilizer'     Size='2'       Tags='Spray, Store_Spray' />
+    <Item Name='Water'            SubType='One'           Icon='water'          Size='1'       Tags='Spray, Store_Spray, AnimalWater' />
+ 
+    <Item Name='Slow Tractor'     SubType='Many'          Icon='tractor'        Size='50'      Tags='Equipment, Store_Equipment' />
+    <Item Name='Fast Tractor'     SubType='Many'          Icon='tractor'        Size='50'      Tags='Equipment, Store_Equipment' />
+    <Item Name='Slow Plow'        SubType='Many'          Icon='plow'           Size='50'      Tags='Equipment, Store_Equipment' />
+    <Item Name='Slow Sprayer'     SubType='Many'          Icon='sprayer'        Size='50'      Tags='Equipment, Store_Equipment' />
+    <Item Name='Slow Planter'     SubType='Many'          Icon='planter'        Size='50'      Tags='Equipment, Store_Equipment' />	
+    <Item Name='Slow Harvester'   SubType='Many'          Icon='harvester'      Size='50'      Tags='Equipment, Store_Equipment' />
+    <Item Name='Small Trailer'    SubType='Many'          Icon='trailer'        Size='50'      Tags='Equipment, Store_Equipment' />
+ 
+    <Item Name='Cow' 		      SubType='Many'          Icon='cow'            Size='25'      Tags='Animal, Store_Animal' />
+ 
+    <Item Name='Rain'             SubType='One'/> 
+    <Item Name='Sunlight'         SubType='One'/> 
+ 
+    <Item Name='Pests'            SubType='One'/> 
+    <Item Name='Virus'            SubType='One'/> 
+ 
+    <Item Name='Wheat'            SubType='Qualities'     Icon='wheat'          Size='1'       Tags='Crop, Store_Crop' />
+    <Item Name='Apple'            SubType='Qualities'     Icon='apple'          Size='1'       Tags='Crop, Store_Crop, AnimalFood' />
+    <Item Name='Meat'             SubType='Qualities'     Icon='meat'           Size='1'       Tags='Crop, Store_Crop' />	
+    <Item Name='Wood'             SubType='Qualities'     Icon='log'            Size='10'      Tags='Crop, Store_Crop' />
+ 
+ 
+ 
+ 
+ 
+    <!-- 
+    
+    Actions and Events
+    
+    In the game actions are done by workers or animals.  Many places in this file say that an action can be sepcified.
+    This list of actions that can be done is below:
+        
+    Plow               - when a worker plows a land square
+    Plant              - when a worker plants a crop
+    Pick               - when a worker picks a crop
+    Harvest            - when a worker harvests a crop
+    Spray              - when a worker sprays a crop
+    PutItems           - when a worker puts items into a building (this includes putting animals into a pasture)
+    GetItems           - when a worker gets items from a building (this includes getting animals from a pasture)
+    DisguardItems      - when a worker disgraurds item (this happens when the worker sells items, or when the worker is told to abort its current task and there is no where to take the items)
+    VisitTrough        - when an visits a trough and consumes items from the trough
+    Baby               - when an animal has a baby
+    Consume            - when an animal decides it needs to consume items (this is when the animal decides it needs to do this not when it actually does it)
+    Die                - when an animal or crop dies
+    Move               - note the Move "action" is NOT applied to traits/texture on every move.  It exists only so that a delay can be applied to movement.
+    
+    -->
+    
+    
+    <!--
+    
+    Ranges
+    
+    Several locations in this file ask for a range to be specifed, standard math notation is used for ranges
+    Square brackets '[', ']' are inclusive, Round '(', ')' exclusive.
+    I and N can be used to specify positive and negative infinity. 
+    Ex. "[5,10]"  means 0 (inclusive) to 10 (inclusive).
+    Ex. "(7,20]"  means 7 (exclusive) to 20 (inclusive).
+    Ex. "[0,I]"   means 0 (inclusive) to positive infinity.
+    Ex. "(N,100)" means negative infinity to 100 (exclusive). 
+    Ex. "[N,I]" means all values.
+        
+    -->
+ 
+ 
+    <!--
+    
+    Traits
+    
+    Many of the farm data objects below have traits.  A trait is really just a number associated with an object that changes over time.    
+    Traits have these properties:
+    Name            - Name of the trait, some object require trait(s) with a certain names the comment near the object will mention this.
+    Start           - The value the trait starts at, when the object is first created
+    Min             - The lowest possible value for the trait
+    Max             - The highest possible value for the trait
+    Hidden          - Hidden traits are not shown the the player (this defaults to false if not specified)
+    
+    Traits can be effected by several things:
+    EffectingItem   - An Item that effects the value of trait, and the amount it effects the trait.
+                      The effect occurrs when the item is applied to the trait.
+    EffectingRange  - A Range that effects the value of trait, and the amount it effects the trait.
+                      Each day the value of the trait is checked, if it is between the range specifed the effect is applied. 
+                      Optionally the name of another trait of the object can be specified, in which case that value of that trait is checked instead.
+    EffectingAction - An Action or Event that effects the value of trait, and the amount it effects the trait.
+                      Each time the action is done by (or done to) or the event happens to the object the effect is applied.
+                      A list of valid actions 
+                      
+    TODO: add effecting Item Tag (any item with the tag has the effect)
+                      
+                      
+    Traits effect the quality of objects with quality:
+    RunningQuality         - determines the traits effect on quality throughout the life of the object (see below)
+    InstantaneousQuality   - determines the traits effect on quality at an individual point in time (see below)
+    
+    The quality of an object at any particular time is determined as such:
+    The trait's daily running quality is calculated once each day for each trait.
+    All traits' daily running qualities are combined to form the object's daily running quality.  They are combined by taking the weighted average.
+    The object's daily running quality is averaged with the object's daily running quality for all other days of the objects life
+    this is the object's running quality.
+    Next the trait's instantaneous quality is calculated for each trait.
+    Each trait's instantaneous qualities is multipled by the objects current running quality to get the objects overall quality.
+    This is the quality that would be seen were the object to be harvested/sold right now.						     
+    
+    Trait quality (both running and instantaneous) is calculated using the following equation:
+    -100*(([CurrentValue]-[OptimalValue])/[MaxAbove])^[LeniencyAbove] + 100     WHERE CurrentValue > OptimalValue
+    -100*(([OptimalValue]-[CurrentValue])/[MaxBelow])^[LeniencyBelow] + 100     WHERE CurrentValue < OptimalValue
+    
+    So if you are more than MaxAbove or MaxBelow the OptimalValue quality will be 0.  
+    LeniencyAbove and LeniencyBelow determine how quickly the quality aproches 0.  
+    1 would be apporching linarly, 2 would be mean it approches 0 slower, 0.5 would mean faster.  
+    If LeniencyAbove is "I" for Infinity quality will always be 100 when above.  And similarly for below. (I is default so not specifing above or below means it wont loose quality in that direction)
+    
+    Each trait can specify one, none, or both types of qualites.   
+
+    -->
+ 
+ 
+    <!--
+    
+    Textures
+    
+    The texture an object will show is often based on the traits of the object.  It may also be based on what the object contains (for objects that hold items).
+    In addition temporary textures can be specified that occurr when an object preforms an action.
+        
+    Texture      - Texture that will be seen when the conditions are met.    
+    Name         - Name for the texture, and its conditions (this is not usually needed, only if you have two set of conditions that would both apply the same texture, then each needs it own unique name)
+    Condition    - The conditions at which time the texture will be applied.
+                   Trait    - Name of the trait whos value is checked to see if the condition is met
+                   ItemTag  - Tag of an item that the building should contain in order for the condition to be met
+                   Range    - For Trait conditions the trait should be within this range,  for ItemTag the building should contain this many items with that tag
+                   If no conditions are specified the texture will always be applied
+               
+               
+    TempTexture are used to specify a texture should be temporarily used while and action or event is taking place.
+    
+    Texture      - Texture that will be seen during the action
+    Action       - Action during which the texture should appear.
+    
+    -->
+ 
+ 
+    <!--
+    Land
+    
+    You must always have one and only one Land section.  This specifies traits that each land tile has, and texture the land tiles should use.
+    
+    MaxHeight      - Land can not go higher than this
+    MinHeight      - Land can not go lower than this
+
+    Land has traits, but it does not have qulality (as you dont sell it a store).
+    The traits of the land are joined with the traits of a crop planted on the land.
+    Any crop trait with the same name as a land trait when the crop is planted the crops trait will start with the current value of that land trait.  
+    Crops trait and the lands trait will have the same value for the period of time that the crop is on the land.
+    The effects specifed below, and those specifed for the crop will both effect the trait.
+    
+    The "Slope" trait is special,  the value of this trait is set automatically based on the slope of the land.
+    
+    -->
+    
+    
+    <Land MaxHeight='20' MinHeight='0' >					
+        <Trait Name='Water' Start='500' Min='0' Max='1000'>
+            <EffectingItem Item='Water' Effect='50' />
+            <EffectingItem Item='Rain' Effect='25' />								
+            <EffectingRange Range='[50,I]' Effect='-1' />			
+        </Trait>
+        <Trait Name='Nutriants' Start='1000' Min='0' Max='1000'>
+            <EffectingItem Item='Fertilizer' Effect='50' />			
+            <EffectingRange Range='[N,80]' Effect='2' />
+            <EffectingItem Item='Cow' Effect='-1' />
+        </Trait>			
+        <Trait Name='Slope' Min='0' Max='40' />		
+        <Trait Name='Aeration' Start='10' Min='0' Max='360'>
+            <EffectingAction Action='Plow' Effect='200000' />			
+            <EffectingItem Item='Cow' Effect='-1' />
+            <EffectingRange Range='[75,I]' Effect='-1' />
+        </Trait>
+
+        <Texture Texture='Grass'>			
+            <Condition Trait='Aeration' Range='[0,180)'/>			
+        </Texture>		
+        <Texture Texture='Plowed'>			
+            <Condition Trait='Aeration' Range='[180,I]'/>			
+        </Texture>		
+        <TempTexture Texture='Plowed' Action='Plow'/>
+    </Land>
+
+    
+    
+    
+    
+    
+ 
+    <!--
+    
+    Delays
+    
+    Items that are used for actions or do actions have delays associated with them.
+    The delay determines how long a worker/animal will take to do an action.
+    Delays can be based on traits such that actions take different amount of times based on traits.
+    
+    Action        - the action that the delay is being specifed for
+    Min           - the lowest possible value for the delay (in days)
+    Max           - the highest possible value for the delay (in days)
+    Trait         - the trait the delay is based on (it is based on the instanaious quality of that trait).  
+                    Max quality = Min delay, and Min quality = Max delay
+    Val           - if the delay is not based on a trait you can just specify the value of the delay. (in days)
+    OverrideType  - Multiple delays can all effect an action.  For instance when a worker is on a tractor and has a plow the delay of the worker, tractor, and plow all have an effect.
+                    The overall delay is calculated by multipling all delays together.  Overall Delay = 1 * Worker Delay * Tractor Delay * Plow Delay.  
+                    Unless the OverrideType is set to "Override" in that case the workers delay would be ignored.  (The override attribute should be on the delay tag inside the worker)                     
+    
+    For most delays you are specifing the total time to do the action once.  So for instance "Plow" is the total delay for plowing one peice of land.
+    For the "Move" delay this is the total time for each movement the worker preforms (the worker does 16 movements between each two land tiles).  So this delay should be very small.
+    
+    -->
+ 
+ 
+ 
+    
+    <!--
+
+    Equipment
+    
+    Equipment is used by the worker for tasks.  If the player has bough equipment they can choose to have their workers use the equipment to complete the task.
+    Generally the equipment should allow the worker to complete the task faster, by allowing the worker to move faster, work faster, and/or carry more items at once.
+    
+    Item    		      - the item type for this equipment.  The item type must have a sub type of "Many" because each peice of equipment will have its own quality that changes over time.    
+    Kind                  - the kind of equipment this is the worker will for a certain kind(s) of equipment when performing certain tasks
+                            Tractor      - used by Plant, Plow, and Spray tasks
+                            Plow         - used by Plow task 
+                            Sprayer      - used by Spray task
+                            Planter      - used by Plant task
+                            Harvester    - used by Harvest task
+                            Trailer      - used by Harvest task    
+    InventoryMultiplier   - multiplier for size of the workers inventory when the worker has this peice of equipment.  If not specifed it will be 1.0.
+                            if the worker has both a vehicle (ex. tractor) and a tow (ex. plow) the two multipliers will be multiplied together to get the total multiplier.
+    
+    Equipmnets quality is determined by it traits.  The quality of the equipment item is updated daily based on the quality of the equipment (which is based on the equipments traits).    
+    The special "Age" can be specifed when the equipment is added to the store in the game script.
+     
+    -->	
+        
+    <Equipment Item='Slow Tractor' EquipmentType='Tractor'>
+        <Trait Name='Age' Min='0' Max='3600' Start='0'>
+            <EffectingRange Range='[N,I]' Effect='1' />
+            <InstantaneousQuality Optimal='0' MaxAbove='4000' LeniencyBelow='2' />		
+        </Trait>
+        <Trait Name='Wear' Min='0' Max='5000' Start='0'>
+            <EffectingAction Action='Plow' Effect='1' />
+            <EffectingAction Action='Plant' Effect='1' />
+            <EffectingAction Action='Pick' Effect='1' />
+            <EffectingAction Action='Harvest' Effect='1' />
+            <EffectingAction Action='Spray' Effect='1' />
+            <InstantaneousQuality Optimal='0' MaxAbove='3600' LeniencyBelow='2' />		
+        </Trait>		
+        
+        <Texture Texture='tractor' />
+        
+        <Delay Action='Move' Min='0.0025' Max='0.0050' Trait='Age'/>
+    </Equipment>
+        
+    <Equipment Item='Fast Tractor' EquipmentType='Tractor'>
+        <Trait Name='Age' Min='0' Max='3600' Start='0'>
+            <EffectingRange Range='[N,I]' Effect='1' />
+            <InstantaneousQuality Optimal='0' MaxAbove='4000' LeniencyBelow='2' />		
+        </Trait>
+        <Trait Name='Wear' Min='0' Max='5000' Start='0'>
+            <EffectingAction Action='Plow' Effect='1' />
+            <EffectingAction Action='Plant' Effect='1' />
+            <EffectingAction Action='Pick' Effect='1' />
+            <EffectingAction Action='Harvest' Effect='1' />
+            <EffectingAction Action='Spray' Effect='1' />
+            <InstantaneousQuality Optimal='0' MaxAbove='3600' LeniencyBelow='2' />		
+        </Trait>		
+        
+        <Texture Texture='tractor' />
+        
+        <Delay Action='Move' Min='0.0015' Max='0.0030' Trait='Age'/>
+    </Equipment>
+    
+    
+    <Equipment Item='Slow Plow' EquipmentType='Plow'>
+        <Trait Name='Age' Min='0' Max='3600' Start='0'>
+            <EffectingRange Range='[N,I]' Effect='1' />
+            <InstantaneousQuality Optimal='0' MaxAbove='4000' LeniencyBelow='2' />		
+        </Trait>
+        <Trait Name='Wear' Min='0' Max='3000' Start='0'>
+            <EffectingAction Action='Plow' Effect='1' />
+            <InstantaneousQuality Optimal='0' MaxAbove='3600' LeniencyBelow='2' />		
+        </Trait>		
+        
+        <Texture Texture='plow' />
+        
+        <Delay Action='Plow' Min='0.5' Max='0.75' Trait='Age'/>
+        <Delay Action='Move' Val='1.25'/>
+    </Equipment>
+    
+    <Equipment Item='Slow Sprayer' EquipmentType='Sprayer' InventoryMultiplier='1.25'>
+        <Trait Name='Age' Min='0' Max='3600' Start='0'>
+            <EffectingRange Range='[N,I]' Effect='1' />
+            <InstantaneousQuality Optimal='0' MaxAbove='4000' LeniencyBelow='2' />		
+        </Trait>
+        <Trait Name='Wear' Min='0' Max='3000' Start='0'>
+            <EffectingAction Action='Spray' Effect='1' />
+            <InstantaneousQuality Optimal='0' MaxAbove='3600' LeniencyBelow='2' />		
+        </Trait>		
+        
+        <Texture Texture='sprayer' />
+        
+        <Delay Action='Spray' Min='0.5' Max='0.75' Trait='Age'/>
+    </Equipment>
+    
+    <Equipment Item='Slow Planter' EquipmentType='Planter' InventoryMultiplier='1.25'>
+        <Trait Name='Age' Min='0' Max='3600' Start='0'>
+            <EffectingRange Range='[N,I]' Effect='1' />
+            <InstantaneousQuality Optimal='0' MaxAbove='4000' LeniencyBelow='2' />		
+        </Trait>
+        <Trait Name='Wear' Min='0' Max='3000' Start='0'>
+            <EffectingAction Action='Plant' Effect='1' />
+            <InstantaneousQuality Optimal='0' MaxAbove='3600' LeniencyBelow='2' />		
+        </Trait>		
+        
+        <Texture Texture='planter' />
+        
+        <Delay Action='Plant' Min='0.5' Max='0.75' Trait='Age'/>
+    </Equipment>
+    
+    <Equipment Item='Slow Harvester' EquipmentType='Harvester' InventoryMultiplier='1.00'>
+        <Trait Name='Age' Min='0' Max='3600' Start='0'>
+            <EffectingRange Range='[N,I]' Effect='1' />
+            <InstantaneousQuality Optimal='0' MaxAbove='4000' LeniencyBelow='2' />		
+        </Trait>
+        <Trait Name='Wear' Min='0' Max='3000' Start='0'>
+            <EffectingAction Action='Harvest' Effect='1' />
+            <InstantaneousQuality Optimal='0' MaxAbove='3600' LeniencyBelow='2' />		
+        </Trait>		
+        
+        <Texture Texture='harvester' />
+        
+        <Delay Action='Harvest' Min='0.5' Max='0.75' Trait='Age'/>
+        <Delay Action='Move' Min='0.0025' Max='0.0050' Trait='Age'/>
+    </Equipment>
+    
+    <Equipment Item='Small Trailer' EquipmentType='Trailer' InventoryMultiplier='2.00'>
+        <Trait Name='Age' Min='0' Max='3600' Start='0'>
+            <EffectingRange Range='[N,I]' Effect='1' />
+            <InstantaneousQuality Optimal='0' MaxAbove='4000' LeniencyBelow='2' />		
+        </Trait>
+        <Trait Name='Wear' Min='0' Max='3000' Start='0'>
+            <EffectingAction Action='Harvest' Effect='1' />
+            <EffectingAction Action='PutItems' Effect='10' />
+            <EffectingAction Action='GetItems' Effect='10' />
+            <InstantaneousQuality Optimal='0' MaxAbove='3600' LeniencyBelow='2' />		
+        </Trait>		
+        
+        <Texture Texture='trailer' />
+        
+        <Delay Action='Move' Val='1.50'/>
+    </Equipment>
+    
+    
+    
+    
+    
+    <!--
+    Worker
+    
+    There should always be one amd only one worker in this file.  
+    This specifies traits that a worker has, the textures the worker should have, and the delays for the worker.    
+
+    InventorySize         - the size of the workers inventory
+    
+    The special Energy trait is used to select which worker should do a task, when tasks are being assigned.
+    The worker with the heighest Energy trait will do the task.  
+
+    Workers do not have quality (since they are not sold)
+
+    -->
+    <Worker InventorySize='100'>
+            
+        <Trait Name='Energy' Start='500' Min='0' Max='500'>										
+            <EffectingRange Range='[N,I]' Effect='2' />
+            <EffectingAction Action='Plow' Effect='-5' Equipmnet='No'/>
+            <EffectingAction Action='Plant' Effect='-5' Equipmnet='No' />
+            <EffectingAction Action='Pick' Effect='-5'  Equipmnet='No'/>
+            <EffectingAction Action='Harvest' Effect='-5' Equipmnet='No' />
+            <EffectingAction Action='Spray' Effect='-5'  Equipmnet='No'/>
+            <EffectingAction Action='PutItems' Effect='-20'/>
+            <EffectingAction Action='GetItems' Effect='-20'/>
+            <InstantaneousQuality Optimal='500' MaxBelow='500' LeniencyBelow='1.2' />
+        </Trait>	
+            
+        <Trait Name='Plow XP' Start='0' Min='0' Max='10000'>										
+            <EffectingRange Range='[N,I]' Effect='-1' />
+            <EffectingAction Action='Plow' Effect='25' />
+            <InstantaneousQuality Optimal='10000' MaxBelow='10000' LeniencyBelow='1' />
+        </Trait>	
+        <Trait Name='Plant XP' Start='0' Min='0' Max='10000'>										
+            <EffectingRange Range='[N,I]' Effect='-1' />
+            <EffectingAction Action='Plant' Effect='25' />
+            <InstantaneousQuality Optimal='10000' MaxBelow='10000' LeniencyBelow='1' />
+        </Trait>	
+        <Trait Name='Pick XP' Start='0' Min='0' Max='10000'>										
+            <EffectingRange Range='[N,I]' Effect='-1' />
+            <EffectingAction Action='Pick' Effect='25' />
+            <InstantaneousQuality Optimal='10000' MaxBelow='10000' LeniencyBelow='1' />
+        </Trait>	
+        <Trait Name='Harvest XP' Start='0' Min='0' Max='10000'>										
+            <EffectingRange Range='[N,I]' Effect='-1' />
+            <EffectingAction Action='Harvest' Effect='25' />
+            <InstantaneousQuality Optimal='10000' MaxBelow='10000' LeniencyBelow='1' />
+        </Trait>	
+        <Trait Name='Spray XP' Start='0' Min='0' Max='10000'>										
+            <EffectingRange Range='[N,I]' Effect='-1' />
+            <EffectingAction Action='Spray' Effect='25' />
+            <InstantaneousQuality Optimal='10000' MaxBelow='10000' LeniencyBelow='1' />
+        </Trait>	
+        
+        
+        <Texture Texture='man1' />
+        <TempTexture Action='Plow' Texture='man1_plow' />
+        
+        <!-- note: movement delay is double if not on a road -->
+        <!-- there are 16 moves between two tiles so delay*16 is time between two (road) tiles -->
+        <!-- delay*32 is time between two (non-road) tiles -->
+        <Delay Action='Move' Min='0.0050' Max='0.0100' Trait='Energy' OverrideType='Override'/>
+        
+        <Delay Action='Plow' Min='0.1' Max='0.5' Trait='Plow XP'/>
+    </Worker>
+        
+        
+    <!--
+    
+    Events
+    
+    Events are used to specify a very simple AI that crops and animals follow.
+    When set of conditions are met the event takes place.
+    
+    Name         - unique name for the event
+    CheckRate    - how often (in days) the event is checked for.  This very important for events that have random conditions because more checks means the event is more likely)
+    Type         - the type of event.  Different objects support different types of event (see the comment near the object for what events are supported)
+    Condition    - The conditions that must be met for the event to occurr.
+                   Trait    - Name of the trait whos value is checked to see if the condition is met
+                   Random   - Instead of a trait a random value between 0 and 100 is checked (You must type this as "Random=''" but the value between quotes is ignored)
+                   Range    - For Trait conditions the trait should be within this range,  for Random the random value is within this range.
+
+    -->   
+    
+    
+    
+    <!--
+    Crops
+    
+    One way player make money is by planting and then harvesting crops.
+    Crops can be picked or harvested.  Picked meand the crop will still be there afterwards (for insance an apple tree).
+    Harvested means the crop will not be there afterward (for instance wheat).
+    All crops must be harvestable, but do not need to be pickable.  Harvesting something like an apple tree for instance produces wood.
+
+    Seed		            - The item that is planted to create this crop.
+    HarvestItem             - The item type that is created when this crop is harvested.  The item type must have a sub type of "Qualities".  
+    PickItem                - The item type that is created when this crop is picked.  The item type must have a sub type of "Qualities".  If not specifed the crop can not be picked.
+    NeedsSpace              - If this is set to true the crop will be planted in the field with a space between it and the other crops in the field (for instance trees take more space).
+    PickableTrait           - This is the trait to examin to determine if the crop is pickable.
+    PickableRange           - The crop can only be picked when the pickable trait is within this range.  This prevents the player from constantly picking the crop over and over.
+                              Once the crop is picked, it can not be picked again until the pickable trait goes out of the pickable range, and then back into the pickable range.
+    PlantDelayMultiplier    - When a worker plants this crop the delay to plant is multiplied by this multiplier to get the total plant delay.  If not specifed the default is "1.0"
+    PickDelayMultiplier     - When a worker picks this crop the delay to pick is multiplied by this multiplier to get the total pick delay.  If not specifed the default is "1.0"
+    HarvestDelayMultiplier  - When a worker harvests this crop the delay to harvest is multiplied by this multiplier to get the total harvest delay.  If not specifed the default is "1.0"
+    
+    The traits of the crop are used to determine the crops quality.  
+    The quality of a crop when picked or harvested determine the quality of the item created.    
+    Also see the comment under "Land" which talks about how Crop traits are combined with Land tratis.
+    
+    The crop supports the "Die" event type.  When the conditions are met the crop is deleted.
+    
+    -->
+    <Crop Seed='Wheat Seed' HarvestItem='Wheat'>	
+        <Trait Name='Growth' Start='0' Min='0' Max='400' >
+            <InstantaneousQuality Optimal='180' MaxAbove='120' MaxBelow='100' LeniencyAbove='2' LeniencyBelow='1.1' />
+            <EffectingRange Range='[N,I]' Effect='1' />
+        </Trait>		
+        <Trait Name='Water' Min='0' Max='1000' >
+            <RunningQuality Optimal='400' Weight='4' MaxAbove='300' MaxBelow='200' LeniencyAbove='1' LeniencyBelow='1' />
+            <EffectingRange Range='[N,I]' Effect='-1' />
+        </Trait>
+        <Trait Name='Nutriants' Min='0' Max='1000' >		
+            <RunningQuality Optimal='100' Weight='2' MaxBelow='60' LeniencyBelow='1' />
+            <EffectingRange Range='[N,I]' Effect='-2' />
+        </Trait>			
+        <Trait Name='Sunlight' Start='60' Min='0' Max='100' >
+            <RunningQuality Optimal='60' Weight='4' MaxAbove='50' MaxBelow='50' LeniencyAbove='1' LeniencyBelow='1' />
+            <EffectingItem Item='Sunlight' Effect='3' />			
+            <EffectingRange Range='[N,I]' Effect='-1' />
+        </Trait>
+        <Trait Name='Pests' Start='0' Min='0' Max='100'>
+            <RunningQuality OptimalValue='0' Weight='5' MaxAbove='20' LeniencyAbove='1' />
+            <InstantaneousQuality OptimalValue='0' MaxAbove='50' LeniencyAbove='1' />
+            <EffectingItem Item='Pests' Effect='10' />
+        </Trait>
+        <Trait Name='Slope' Min='0' Max='40'>
+            <RunningQuality Optimal='0' Weight='3' MaxAbove='40' LeniencyAbove='0.50' />
+        </Trait>
+        <Trait Name='Aeration' Min='0' Max='360' >
+            <RunningQuality Weight='3' Optimal='360' MaxBelow='360' LeniencyBelow='2' />		
+        </Trait>		
+        
+        <Event Name='Die1' Type='Die' CheckRate='30'>			
+            <Condition Trait='Growth' Range='[400,I]'/>			
+        </Event>
+        <Event Name='Die2' Type='Die' CheckRate='15'>
+            <Condition Trait='Water' Range='[0,5]'/>
+            <Condition Random='' Range='[75,100]'/>
+        </Event>	
+
+        <Texture Texture='wheat_short'>
+            <Condition Trait='Growth' Range='[0,60)'/>
+        </Texture>
+        <Texture Texture='wheat_med'>
+            <Condition Trait='Growth' Range='[60,120)'/>
+        </Texture>
+        <Texture Texture='wheat_tall'>
+            <Condition Trait='Growth' Range='[120,I]'/>
+        </Texture>
+    </Crop>
+    
+    
+    <Crop Seed='Apple Seed' Texture='apple' PickItem='Apple' HarvestItem='Wood' NeedsSpace='true' PickableTrait='FruitGrowth' PickableRange='[50,180]'>
+    
+        <Trait Name='Growth' Start='0' Min='0' Max='36000' Hidden='true'>			
+            <EffectingRange Range='[N,I]' Effect='1' />
+        </Trait>
+        
+        <Trait Name='FruitGrowth' Start='0' Min='0' Max='180'>	
+            <InstantaneousQuality Optimal='100' MaxAbove='80' MaxBelow='40' LeniencyAbove='2' LeniencyBelow='1' />
+            <EffectingRange Trait='Growth' Range='[360,I]' Effect='1' />
+            <EffectingRange Range='[180,180]' Effect='-180' />
+        </Trait>
+    
+        <Trait Name='Water' Min='0' Max='200' >
+            <RunningQuality Optimal='60' Weight='4' MaxAbove='100' MaxBelow='50' LeniencyAbove='1' LeniencyBelow='1' />		
+            <EffectingRange Range='[N,I]' Effect='-1' />
+        </Trait>
+        <Trait Name='Nutriants' Min='0' Max='200'>
+            <RunningQuality Optimal='50' Weight='2' MaxBelow='60' LeniencyBelow='1' />
+            <EffectingRange Range='[N,I]' Effect='-2' />
+        </Trait>			
+        <Trait Name='Sunlight' Start='60' Min='0' Max='100'>
+            <RunningQuality Optimal='60' Weight='4' MaxAbove='50' MaxBelow='50' LeniencyAbove='1' LeniencyBelow='1' />
+            <EffectingItem Item='Sunlight' Effect='1' />			
+            <EffectingRange Range='[N,I]' Effect='-1' />
+        </Trait>
+        <Trait Name='Pests' Start='0' Min='0' Max='100'>
+            <RunningQuality Optimal='0' Weight='5' MaxAbove='20' LeniencyAbove='1' />
+            <InstantaneousQuality Optimal='0' MaxAbove='50' LeniencyAbove='1' />
+            <EffectingItem Item='Pests' Effect='10' />
+        </Trait>		
+        <Trait Name='Slope' Min='0' Max='40' >
+            <RunningQuality Optimal='40' Weight='3' MaxBelow='50' LeniencyBelow='1' />
+        </Trait>	
+
+
+        <Texture Texture='apple_short'>
+            <Condition Trait='Growth' Range='[0,120)'/>
+        </Texture>
+        <Texture Texture='apple_med'>
+            <Condition Trait='Growth' Range='[120,240)'/>
+        </Texture>
+        <Texture Texture='apple_tall_small'>
+            <Condition Trait='Growth' Range='[240,I]'/>
+            <Condition Trait='FruitGrowth' Range='[0,45)'/>
+        </Texture>	
+        <Texture Texture='apple_tall_med'>
+            <Condition Trait='Growth' Range='[240,I]'/>
+            <Condition Trait='FruitGrowth' Range='[45,90)'/>
+        </Texture>	
+        <Texture Texture='apple_tall_large'>
+            <Condition Trait='Growth' Range='[240,I]'/>
+            <Condition Trait='FruitGrowth' Range='[90,135)'/>
+        </Texture>	
+        <Texture Texture='apple_tall_over'>
+            <Condition Trait='Growth' Range='[240,I]'/>
+            <Condition Trait='FruitGrowth' Range='[135,I]'/>
+        </Texture>		
+    </Crop>
+    
+    
+    
+    
+    <!--
+    Animals
+    
+    The other way the player makes money is by raising animals.  
+    Generally you will allow the player to buy baby animals in the store, they can then raise and breed the animals to make money.
+
+    AnimalType        - The items type for this animal.  The item type must have a sub type of "Many" because each animal will have its own quality that changes over time.    
+
+    An animals quality is determined by it traits.  The quality of the animal item is updated daily based on the quality of the animal (which is based on the animals traits).
+        
+    
+    Animals suppport several event types:
+    
+    "Die"         - deletes the animal object    
+    "Baby"        - the animal creates a baby of the same type
+    "Consume"     - the animal consumes items in an effort to increase the value of one of its traits.  (It visits a trough that contains items that will effect the trait)
+                    For this event you must also sepcify:
+                    ConsumeTrait   - the trait the animal will attempt to adjust
+                    ConsumeChange  - the animal will attempt to adjust the trait by this amount
+   
+    The special "Age" can be specifed when the animal is added to the store in the game script.
+    The special "Space" trait is based on the amount of space the animal has in its pasture.  
+    It gets set to [Total Land Tiles In Pasture] * 10 / [Total Animals In Pastere].
+    So for instance 50 = each animal has 5 land tiles to itself,  15 = each animal has 1.5 land tiles to itself
+    -->
+    <Animal AnimalType='Cow'>
+        <Trait Name='Age' Start='0' Min='0' Max='10800'>								
+            <InstantaneousQuality Optimal='3600' MaxAbove='7200' MaxBelow='3600' LeniencyAbove='2' LeniencyBelow='2' />
+            <EffectingRange Range='[N,I]' Effect='1' />
+        </Trait>	
+        <Trait Name='DaysSinceBaby' Start='360' Min='0' Max='360' Hidden='true'>
+            <EffectingEvent Event='Baby' Effect='-360' />
+            <EffectingRange Range='[N,I]' Effect='1' />
+        </Trait>	
+        <Trait Name='Water' Start='100' Min='0' Max='100' >	
+            <RunningQuality Optimal='100' Weight='4' MaxAbove='100' MaxBelow='50' LeniencyAbove='1' LeniencyBelow='1' />							
+            <EffectingRange Range='[N,I]' Effect='-1' />
+            <EffectingItem Item='Water' Effect='1' />
+        </Trait>
+        <Trait Name='Food' Start='100' Min='0' Max='150'>
+            <RunningQuality Optimal='100' Weight='3' MaxBelow='75' LeniencyBelow='1' MaxAbove='80' LeniencyAbove='2' />
+            <EffectingRange Range='[20,I]' Effect='-2' />
+            <EffectingRange Range='[N,20)' Effect='-1' />
+            <EffectingItem Item='Wheat' Effect='1' />
+            <EffectingItem Item='Apple' Effect='1' />
+        </Trait>	
+        <Trait Name='Space' Min='0' Max='100' >
+            <RunningQuality Optimal='50' Weight='3' MaxBelow='5' LeniencyBelow='1' />
+        </Trait>
+        <Trait Name='Health' Start='100' Min='0' Max='100'>
+            <RunningQuality  Optimal='100' Weight='5' MaxBelow='20' LeniencyBelow='1' />
+            <InstantaneousQuality  Optimal='100' MaxBelow='50' LeniencyBelow='1' />
+            <EffectingItem Item='Virus' Effect='-40' />
+        </Trait>	
+        
+        <Event Name='EatLots' Type='Consume' CheckRate='5' ConsumeTrait='Food' ConsumeChange='20'>
+            <Condition Trait='Food' Range='[N,50)'/>
+        </Event>
+        <Event Name='EatSome' Type='Consume' CheckRate='5' ConsumeTrait='Food' ConsumeChange='10'>
+            <Condition Trait='Food' Range='[50,75)'/>
+        </Event>
+        <Event Name='EatLittle' Type='Consume' CheckRate='5' ConsumeTrait='Food' ConsumeChange='5'>
+            <Condition Trait='Food' Range='[75,I]'/>
+        </Event>
+        
+        <Event Name='DrinkLots' Type='Consume' CheckRate='5' ConsumeTrait='Water' ConsumeChange='20'>
+            <Condition Trait='Water' Range='[N,50)'/>
+        </Event>
+        <Event Name='DrinkSome' Type='Consume' CheckRate='5' ConsumeTrait='Water' ConsumeChange='10'>
+            <Condition Trait='Water' Range='[50,75)'/>
+        </Event>
+        <Event Name='DrinkLittle' Type='Consume' CheckRate='5' ConsumeTrait='Water' ConsumeChange='5'>
+            <Condition Trait='Water' Range='[75,I]'/>
+        </Event>
+        
+        <Event Name='HaveBaby' Type='Baby' CheckRate='30'>
+            <Condition Trait='Age' Range='[720,I]'/>								
+            <Condition Trait='Food' Range='[75,I]'/>
+            <Condition Trait='DaysSinceBaby' Range='[360,360]' />			
+            <Condition Random='' Range='[90,100]'/>
+        </Event>
+        
+        <Event Name='Die1' Type='Die' CheckRate='30'>			
+            <Condition Trait='Age' Range='[7200,I]'/>								
+            <Condition Random='' Range='[90,100]'/>
+        </Event>
+        <Event Name='Die2' Type='Die' CheckRate='30'>			
+            <Condition Trait='Age' Range='[10800,I]'/>								
+            <Condition Random='' Range='[0,100]'/>
+        </Event>
+        <Event Name='Die3' Type='Die' CheckRate='30'>			
+            <Condition Trait='Food' Range='[0,25]'/>								
+            <Condition Random='' Range='[90,100]'/>
+        </Event>
+        
+        <Texture Texture='cow'>			
+            <Condition Trait='Age' Range='[N,I]'/>
+        </Texture>
+        
+        <Delay Action='Move' Val='0.0050'/>
+    </Animal>
+    
+    
+    
+    
+            
+    <!--
+        
+    Storage Building
+    
+    Storage building hold items,  items that are bough are always taken to a storage building,  and to sell an item is must be in a storage building.
+    
+    Name            - name of the building type, the buldings name will default to something like "Barn 1" where "Barn" is the name (and 1 means it the first Barn built.
+                      (you can not have an "_" in the name) 
+    ActionLocation  - when a worker is going to the build to do an action they will go to the location specified. 
+                      The location is based on the center location, traveling in the directions specified.
+                      This location should NOT be a location that is taken up by the building (see below)
+    LandOn          - this specifies how much space the building takes up.  
+                      Its a list of semi colon delimited locations (relative to the center location)
+    Capacity        - Capacity determines how many items the building can hold
+    
+    ItemTag         - The building can hold any Items with this tag    
+        
+    -->
+    <StorageBuilding Name='Barn' ActionLocation='SW-SW' LandOn='C; NE; SE; SW; NW; NE-NW; NE-SE; SW-SE; SW-NW' Capacity='5000'>
+        <ItemTag Name='Seed'/>
+        <ItemTag Name='Spray'/>
+        <Texture Texture='barn' />	 
+    </StorageBuilding>
+    <StorageBuilding Name='Shed' ActionLocation='SW-SW' LandOn='C; NE; SE; SW; NW; NE-NW; NE-SE; SW-SE; SW-NW' Capacity='5000'>
+        <ItemTag Name='Equipment'/>	
+        <Texture Texture='shed' />	
+    </StorageBuilding>
+    <StorageBuilding Name='Silo' ActionLocation='SW-SW' LandOn='C; NE; SE; SW; NW; NE-NW; NE-SE; SW-SE; SW-NW' Capacity='5000'>
+        <ItemTag Name='Crop'/>		
+        <Texture Texture='silo' />
+    </StorageBuilding>
+    
+           
+    <!--
+        
+    Trough
+    
+    Troughs hold items for animals to consume
+    
+    Name            - name of the trough
+                      (you can not have an "_" in the name) 
+    ActionLocation  - when a animal is going to the building to do an action they will go to the location specified. 
+                      The location is based on the center location, traveling in the directions specified.
+                      This location should NOT be a location that is taken up by the building (see below)
+    LandOn          - this specifies how much space the building takes up.  
+                      Its a list of semi colon delimited locations (relative to the center location)
+    Capacity        - Capacity determines how many items the building can hold
+    
+    ItemTag         - The building can hold any Items with this tag    
+        
+    -->
+    <Trough Name='Trough' ActionLocation='NW'  LandOn='C;' Capacity='200'>
+        <ItemTag Name='Crop'/>
+        <ItemTag Name='Spray'/>
+        <Texture Texture='trough_empty'>	
+            <Condition ItemTag='All' Range='[0,25)'/>
+        </Texture>
+        <Texture Texture='water_trough_full'>	
+            <Condition ItemTag='Spray' Range='[25,I]'/>
+        </Texture>
+        <Texture Texture='food_trough_full'>	
+            <Condition ItemTag='Crop' Range='[25,I)'/>
+        </Texture>
+    </Trough>
+    
+    
+            
+
+    <!--
+        
+    Production Buildings
+    
+    Production buildings turn one item into another type of item (or produce something from nothing).
+    
+    Name            - name of the building type, the buldings name will default to something like "Barn 1" where "Barn" is the name (and 1 means it the first Barn built.
+                      (you can not have an "_" in the name)
+    ActionLocation  - when a worker is going to the build to do an action they will go to the location specified. 
+                      The location is based on the center location, traveling in the directions specified.
+                      This location should NOT be a location that is taken up by the building (see below)
+    LandOn          - this specifies how much space the building takes up.  
+                      Its a list of semi colon delimited locations (relative to the center location)
+    Capacity        - Capacity determines how many items the building can hold    
+    
+    Interval        - The building will attempt to turn inputs into outputs every interval days (if it is fully staffed)
+    MaxWorkers		- Number of staff needed for the building to produce at Interval.  If 0 building always produces at interval.
+                      If the building is only half staffed it will take twice as long, 1/4 staffed 4 times as long, etc.
+    Input           - Item type, and amount that must be in the building in order to produce the Outputs
+    Output          - Item type, and amount that will be produced
+    
+    The output items must have subtypes of "Qualities" or "One"
+    If the output item subType is "Qualities" then the output types will be of the same average quality as all the input types.
+    
+    -->
+    <ProductionBuilding Name='Well' ActionLocation='SW' LandOn='C' Capacity='500' Interval='1.0' MaxWorkers="0">
+        <Output Name='Water' Amount='5'/>	
+        <Texture Texture='well' />	
+    </ProductionBuilding>		 
+    
+    <ProductionBuilding Name='Slaughterhouse' ActionLocation='SW-SW' LandOn='C; NE; SE; SW; NW; NE-NW; NE-SE; SW-SE; SW-NW' Capacity='2000' Interval='1.0' MaxWorkers="5">
+        <Input Name='Cow' Amount='1'/>		
+        <Output Name='Meat' Amount='1'/>	
+        <Texture Texture='slaughterhouse' />	
+    </ProductionBuilding>
+
+            
+
+    <!--
+        
+    Scenery
+    
+    Scenery does nothing its just supposed to look nice.
+    
+    Name            - name of the scenery
+                      (you can not have an "_" in the name)
+    Texture         - texture for the scenery to use    
+    LandOn          - this specifies how much space the building takes up.  
+                      Its a list of semi colon delimited locations (relative to the center location)
+        
+    -->
+    <Scenery Name='Tree' Texture='tree' Height='14' LandOn='C'/>
+    
+   
+    <!--
+        
+    Each file should contain one and only one DeliveryArea section that defines how the delivery area looks and how much space it takes up.  (delivery area always has infinate capacity).
+    
+    Scenery does nothing its just supposed to look nice.
+    
+    LandOn          - this specifies how much space the building takes up.  
+                      Its a list of semi colon delimited locations (relative to the center location)
+        
+    -->
+    <DeliveryArea LandOn='C; NE; SE; SW; NW; NE-NW; NE-SE; SW-SE; SW-NW' ActionLocation='NE-NE'>
+        <Texture Texture='deliveryarea'>	
+            <Condition ItemTag='All' Range='[0,0]'/>
+        </Texture>
+        <Texture Texture='deliveryarea_full'>	
+            <Condition ItemTag='All' Range='[1,I]'/>
+        </Texture>
+    </DeliveryArea>
+	
+	
+	
+	
+           
+    <!--
+        
+    BreakHouse
+    
+    Workers go to a break house when not doing anything else in order to rest
+    
+    Name            - name of the break house
+                      (you can not have an "_" in the name) 
+    ActionLocation  - when a worker visits the breakhouse they go to this tile (aka this is where the door is)
+                      The location is based on the center location, traveling in the directions specified.
+                      This location should NOT be a location that is taken up by the building (see below)
+    LandOn          - this specifies how much space the building takes up.  
+                      Its a list of semi colon delimited locations (relative to the center location)
+    Capacity        - Capacity determines how many items the building can hold
+    
+    ItemTag         - The building can hold any Items with this tag    
+        
+    -->
+    <BreakHouse Name='BreakHouse' ActionLocation='NE-SE-SE' LandOn='C; NE; SE; SW; NW; NE-NW; NE-SE; SW-SE; SW-NW; NE-NE; NE-NE-SE; NE-NE-NW; NW-NW; NW-NW-SW;' Capacity='10'>        
+        <Texture Texture='house' />	            
+    </BreakHouse>
+	
+        
+    
+    
+</FarmData>
+         
+
+
+
+
+
+
+
+
+
+
+
+
+

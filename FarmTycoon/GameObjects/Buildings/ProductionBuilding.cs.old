@@ -1,0 +1,123 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace FarmTycoon
+{
+    public class ProductionBuilding : StorageBuilding
+    {
+        /// <summary>
+        /// List of inputs to the production
+        /// </summary>
+        private Dictionary<ItemType, int> m_inputs;
+
+        /// <summary>
+        /// List of outputs from the production
+        /// </summary>
+        private Dictionary<ItemType, int> m_outputs;
+
+        /// <summary>
+        /// The id for the notification this production building uses
+        /// </summary>
+        private Notification m_notification;
+
+        /// <summary>
+        /// The rate at which the builing should produce things
+        /// </summary>
+        private double m_productionRate;
+
+        /// <summary>
+        /// Create a new building
+        /// Setup or ReadState must be called after the building is created.
+        /// </summary>
+        public ProductionBuilding(): base() { }
+
+        public override void Setup(Location centerLocation, string buildingType)
+        {
+            base.Setup(centerLocation, buildingType);
+            InitProductionBuilding(buildingType);
+        }
+
+        private void InitProductionBuilding(string buildingType)
+        {
+            ProdcutionBuildingInfo buildingInfo = (ProdcutionBuildingInfo)Program.Game.DataFiles.BuildingsFile.GetBuildingInfo(buildingType);
+            
+            //get building info TODO: just reference info object instead of coping data maybe
+            m_productionRate = buildingInfo.ProductionSpeed;
+            m_inputs = buildingInfo.Inputs;
+            m_outputs = buildingInfo.Outputs;
+        }
+
+        public override void BuildingPlaced()
+        {
+            base.BuildingPlaced();
+            
+            //have the building start production
+            m_notification = Program.GameThread.Clock.RegisterNotification(TimePassedHandler, m_productionRate, true);
+        }
+
+
+        public void TimePassedHandler()
+        {
+            //check if the inventory contains all the inputs
+            bool hasInputs = true;
+            foreach (ItemType inputType in m_inputs.Keys)
+            {
+                int amountNeeded = m_inputs[inputType];
+                if (m_inventory.GetTypeCount(inputType) < amountNeeded)
+                {
+                    hasInputs = false;
+                    break;
+                }
+            }
+
+            //if it had everything
+            if (hasInputs)
+            {
+                //first remove the input resources
+                foreach (ItemType inputType in m_inputs.Keys)
+                {
+                    int amountNeeded = m_inputs[inputType];
+                    m_inventory.RemoveFromInvetory(inputType, amountNeeded);
+                }
+
+                //now add the output resources
+                foreach (ItemType outputType in m_outputs.Keys)
+                {
+                    int amountMade = m_outputs[outputType];
+                    m_inventory.AddToInvetory(outputType, amountMade);
+                }
+            }
+        }
+
+
+        protected override void DeleteInner()
+        {
+            base.DeleteInner();
+
+            if (m_notification != null)
+            {
+                //remove notification if we created it
+                Program.GameThread.Clock.RemoveNotification(m_notification);
+            }
+        }
+
+
+
+        public override void WriteState(ObjectState state)
+        {
+            base.WriteState(state);
+            Program.GameThread.Clock.WriteNotificationState(m_notification, state);                        
+        }
+
+        public override void ReadState(ObjectState state)
+        {
+            base.ReadState(state);          
+            string buildingType = state.GetValue<string>("BuildingType");
+            InitProductionBuilding(buildingType);                       
+            m_notification = Program.GameThread.Clock.ReadNotificationState(TimePassedHandler, state);                        
+        }
+
+    }
+}

@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{5A0C7432-8682-43D4-8DC4-5D50E1AF3AE5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TycoonWindowGenerationLib</RootNamespace>
+    <AssemblyName>TycoonWindowGenerationLib</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Debug\TycoonWindowGenerationLib.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Release\TycoonWindowGenerationLib.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="TycoonGauge_Gen.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TycoonGauge_Gen.Designer.cs">
+      <DependentUpon>TycoonGauge_Gen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TycoonWindow_Form_Gen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TycoonWindow_Form_Gen.Designer.cs">
+      <DependentUpon>TycoonWindow_Form_Gen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TycoonPanel_UserControl_Gen.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TycoonPanel_UserControl_Gen.Designer.cs">
+      <DependentUpon>TycoonPanel_UserControl_Gen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TycoonWorldViewPanel_Gen.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TycoonWorldViewPanel_Gen.Designer.cs">
+      <DependentUpon>TycoonWorldViewPanel_Gen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TycoonProgress_Gen.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TycoonProgress_Gen.Designer.cs">
+      <DependentUpon>TycoonProgress_Gen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TycoonTextbox_Gen.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TycoonTextbox_Gen.Designer.cs">
+      <DependentUpon>TycoonTextbox_Gen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TycoonLabel_Gen.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TycoonLabel_Gen.Designer.cs">
+      <DependentUpon>TycoonLabel_Gen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TycoonDropbox_Gen.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TycoonDropbox_Gen.Designer.cs">
+      <DependentUpon>TycoonDropbox_Gen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TycoonButton_Gen.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TycoonButton_Gen.Designer.cs">
+      <DependentUpon>TycoonButton_Gen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TycoonPanel_Gen.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TycoonPanel_Gen.Designer.cs">
+      <DependentUpon>TycoonPanel_Gen.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

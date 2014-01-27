@@ -1,0 +1,548 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{62AAE978-54E4-4C38-A058-6BC1AB586153}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FarmTycoonWindows</RootNamespace>
+    <AssemblyName>FarmTycoonWindows</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RunPostBuildEvent>Always</RunPostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Debug\FarmTycoonWindowGen.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Release\FarmTycoonWindowGen.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Workers\ProductionWorkersWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Workers\ProductionWorkersWindow.Designer.cs">
+      <DependentUpon>ProductionWorkersWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Workers\WorkersPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Workers\WorkersPanel.Designer.cs">
+      <DependentUpon>WorkersPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Workers\WorkerPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Workers\WorkerPanel.Designer.cs">
+      <DependentUpon>WorkerPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Workers\BreakHouseWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Workers\BreakHouseWindow.Designer.cs">
+      <DependentUpon>BreakHouseWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Other\GoalWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Other\GoalWindow.Designer.cs">
+      <DependentUpon>GoalWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Items\ItemCatagoriesPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Items\ItemCatagoriesPanel.Designer.cs">
+      <DependentUpon>ItemCatagoriesPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Items\ItemsShooterPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Items\ItemsShooterPanel.Designer.cs">
+      <DependentUpon>ItemsShooterPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Items\ItemPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Items\ItemPanel.Designer.cs">
+      <DependentUpon>ItemPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Other\LandEditorWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Other\LandEditorWindow.Designer.cs">
+      <DependentUpon>LandEditorWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Stats\Windows\IssuesWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Stats\Windows\IssuesWindow.Designer.cs">
+      <DependentUpon>IssuesWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Traits\SingleTraitsWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Traits\SingleTraitsWindow.Designer.cs">
+      <DependentUpon>SingleTraitsWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Traits\Controls\SubQualitiesPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Traits\Controls\SubQualitiesPanel.Designer.cs">
+      <DependentUpon>SubQualitiesPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Traits\Controls\TraitsPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Traits\Controls\TraitsPanel.Designer.cs">
+      <DependentUpon>TraitsPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Traits\SingleQualityWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Traits\SingleQualityWindow.Designer.cs">
+      <DependentUpon>SingleQualityWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Traits\Controls\SubQualityPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Traits\Controls\SubQualityPanel.Designer.cs">
+      <DependentUpon>SubQualityPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\Tasks\Controls\UseEquipmentCheckbox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tasks\Tasks\Controls\UseEquipmentCheckbox.Designer.cs">
+      <DependentUpon>UseEquipmentCheckbox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\Tasks\ProductionTaskWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tasks\Tasks\ProductionTaskWindow.Designer.cs">
+      <DependentUpon>ProductionTaskWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Traits\Controls\TraitPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Traits\Controls\TraitPanel.Designer.cs">
+      <DependentUpon>TraitPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Generic\ProgressWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generic\ProgressWindow.Designer.cs">
+      <DependentUpon>ProgressWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Generic\DeleteWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generic\DeleteWindow.Designer.cs">
+      <DependentUpon>DeleteWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Generic\YesNoWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generic\YesNoWindow.Designer.cs">
+      <DependentUpon>YesNoWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\Tasks\Controls\BuildingDropbox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tasks\Tasks\Controls\BuildingDropbox.Designer.cs">
+      <DependentUpon>BuildingDropbox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\Tasks\SubWindows\TaskScheduleWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tasks\Tasks\SubWindows\TaskScheduleWindow.Designer.cs">
+      <DependentUpon>TaskScheduleWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\Tasks\Controls\SchedulePanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tasks\Tasks\Controls\SchedulePanel.Designer.cs">
+      <DependentUpon>SchedulePanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\Tasks\SubWindows\PreferredWorkersWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tasks\Tasks\SubWindows\PreferredWorkersWindow.Designer.cs">
+      <DependentUpon>PreferredWorkersWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\Tasks\Controls\PreferredWorkerPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tasks\Tasks\Controls\PreferredWorkerPanel.Designer.cs">
+      <DependentUpon>PreferredWorkerPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Other\ChangeNameWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Other\ChangeNameWindow.Designer.cs">
+      <DependentUpon>ChangeNameWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Generic\MessageWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generic\MessageWindow.Designer.cs">
+      <DependentUpon>MessageWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Startup\BetaWarningWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Startup\BetaWarningWindow.Designer.cs">
+      <DependentUpon>BetaWarningWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\TaskList\TaskPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tasks\TaskList\TaskPanel.Designer.cs">
+      <DependentUpon>TaskPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\TaskList\TasksWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tasks\TaskList\TasksWindow.Designer.cs">
+      <DependentUpon>TasksWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Stats\Windows\TreasuryWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Stats\Windows\TreasuryWindow.Designer.cs">
+      <DependentUpon>TreasuryWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Items\InventoryWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Items\InventoryWindow.Designer.cs">
+      <DependentUpon>InventoryWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Other\ScenarioSettingsWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Other\ScenarioSettingsWindow.Designer.cs">
+      <DependentUpon>ScenarioSettingsWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Startup\SaveGameWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Startup\SaveGameWindow.Designer.cs">
+      <DependentUpon>SaveGameWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Startup\ScenarioListPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Startup\ScenarioListPanel.Designer.cs">
+      <DependentUpon>ScenarioListPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Startup\StartWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Startup\StartWindow.Designer.cs">
+      <DependentUpon>StartWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\Tasks\Controls\IssuesAndTimePanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tasks\Tasks\Controls\IssuesAndTimePanel.Designer.cs">
+      <DependentUpon>IssuesAndTimePanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\Tasks\Controls\NumberOfWorkersPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tasks\Tasks\Controls\NumberOfWorkersPanel.Designer.cs">
+      <DependentUpon>NumberOfWorkersPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Traits\MultiQualityWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Traits\MultiQualityWindow.Designer.cs">
+      <DependentUpon>MultiQualityWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\Tasks\SimpleTaskWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tasks\Tasks\SimpleTaskWindow.Designer.cs">
+      <DependentUpon>SimpleTaskWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\Tasks\MoveItemsTaskWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tasks\Tasks\MoveItemsTaskWindow.Designer.cs">
+      <DependentUpon>MoveItemsTaskWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Items\ItemsPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Items\ItemsPanel.Designer.cs">
+      <DependentUpon>ItemsPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Stats\Overlays\BottomLeftStatus.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Stats\Overlays\BottomLeftStatus.Designer.cs">
+      <DependentUpon>BottomLeftStatus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Stats\Overlays\BottomRightStatus.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Stats\Overlays\BottomRightStatus.Designer.cs">
+      <DependentUpon>BottomRightStatus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Stats\Overlays\IssueOverlay.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Stats\Overlays\IssueOverlay.Designer.cs">
+      <DependentUpon>IssueOverlay.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Stats\Windows\DebugToolWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Stats\Windows\DebugToolWindow.Designer.cs">
+      <DependentUpon>DebugToolWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Generic\PieMenuWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generic\PieMenuWindow.Designer.cs">
+      <DependentUpon>PieMenuWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tools\ToolbarWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tools\ToolbarWindow.Designer.cs">
+      <DependentUpon>ToolbarWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Stats\Windows\WorkerViewWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Stats\Windows\WorkerViewWindow.Designer.cs">
+      <DependentUpon>WorkerViewWindow.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Workers\ProductionWorkersWindow.resx">
+      <DependentUpon>ProductionWorkersWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Workers\WorkersPanel.resx">
+      <DependentUpon>WorkersPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Workers\WorkerPanel.resx">
+      <DependentUpon>WorkerPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Workers\BreakHouseWindow.resx">
+      <DependentUpon>BreakHouseWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Other\GoalWindow.resx">
+      <DependentUpon>GoalWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Items\ItemCatagoriesPanel.resx">
+      <DependentUpon>ItemCatagoriesPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Items\ItemsShooterPanel.resx">
+      <DependentUpon>ItemsShooterPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Items\ItemPanel.resx">
+      <DependentUpon>ItemPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Other\LandEditorWindow.resx">
+      <DependentUpon>LandEditorWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Stats\Windows\IssuesWindow.resx">
+      <DependentUpon>IssuesWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Traits\SingleTraitsWindow.resx">
+      <DependentUpon>SingleTraitsWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Traits\Controls\SubQualitiesPanel.resx">
+      <DependentUpon>SubQualitiesPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Traits\Controls\TraitsPanel.resx">
+      <DependentUpon>TraitsPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Traits\SingleQualityWindow.resx">
+      <DependentUpon>SingleQualityWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Traits\Controls\SubQualityPanel.resx">
+      <DependentUpon>SubQualityPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tasks\Tasks\Controls\UseEquipmentCheckbox.resx">
+      <DependentUpon>UseEquipmentCheckbox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tasks\Tasks\ProductionTaskWindow.resx">
+      <DependentUpon>ProductionTaskWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Traits\Controls\TraitPanel.resx">
+      <DependentUpon>TraitPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Generic\ProgressWindow.resx">
+      <DependentUpon>ProgressWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Generic\DeleteWindow.resx">
+      <DependentUpon>DeleteWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Generic\YesNoWindow.resx">
+      <DependentUpon>YesNoWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tasks\Tasks\Controls\BuildingDropbox.resx">
+      <DependentUpon>BuildingDropbox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tasks\Tasks\SubWindows\TaskScheduleWindow.resx">
+      <DependentUpon>TaskScheduleWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tasks\Tasks\Controls\SchedulePanel.resx">
+      <DependentUpon>SchedulePanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tasks\Tasks\SubWindows\PreferredWorkersWindow.resx">
+      <DependentUpon>PreferredWorkersWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tasks\Tasks\Controls\PreferredWorkerPanel.resx">
+      <DependentUpon>PreferredWorkerPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Other\ChangeNameWindow.resx">
+      <DependentUpon>ChangeNameWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Generic\MessageWindow.resx">
+      <DependentUpon>MessageWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Startup\BetaWarningWindow.resx">
+      <DependentUpon>BetaWarningWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tasks\TaskList\TaskPanel.resx">
+      <DependentUpon>TaskPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tasks\TaskList\TasksWindow.resx">
+      <DependentUpon>TasksWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Stats\Windows\TreasuryWindow.resx">
+      <DependentUpon>TreasuryWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Items\InventoryWindow.resx">
+      <DependentUpon>InventoryWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Other\ScenarioSettingsWindow.resx">
+      <DependentUpon>ScenarioSettingsWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Startup\SaveGameWindow.resx">
+      <DependentUpon>SaveGameWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Startup\ScenarioListPanel.resx">
+      <DependentUpon>ScenarioListPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Startup\StartWindow.resx">
+      <DependentUpon>StartWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tasks\Tasks\Controls\IssuesAndTimePanel.resx">
+      <DependentUpon>IssuesAndTimePanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tasks\Tasks\Controls\NumberOfWorkersPanel.resx">
+      <DependentUpon>NumberOfWorkersPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Traits\MultiQualityWindow.resx">
+      <DependentUpon>MultiQualityWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tasks\Tasks\SimpleTaskWindow.resx">
+      <DependentUpon>SimpleTaskWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tasks\Tasks\MoveItemsTaskWindow.resx">
+      <DependentUpon>MoveItemsTaskWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Items\ItemsPanel.resx">
+      <DependentUpon>ItemsPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Stats\Overlays\BottomLeftStatus.resx">
+      <DependentUpon>BottomLeftStatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Stats\Overlays\BottomRightStatus.resx">
+      <DependentUpon>BottomRightStatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Stats\Overlays\IssueOverlay.resx">
+      <DependentUpon>IssueOverlay.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Stats\Windows\DebugToolWindow.resx">
+      <DependentUpon>DebugToolWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Generic\PieMenuWindow.resx">
+      <DependentUpon>PieMenuWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tools\ToolbarWindow.resx">
+      <DependentUpon>ToolbarWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Stats\Windows\WorkerViewWindow.resx">
+      <DependentUpon>WorkerViewWindow.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Utilities\TycoonWindowGenerationLib\TycoonWindowGenerationLib.csproj">
+      <Project>{5A0C7432-8682-43D4-8DC4-5D50E1AF3AE5}</Project>
+      <Name>TycoonWindowGenerationLib</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>cd $(TargetDir)
+$(SolutionDir)Utilities\TycoonWindowGenerator\$(OutDir)\TycoonWindowGenerator.exe  "$(TargetPath)" "$(SolutionDir)FarmTycoon\UI\Windows\Generated.cs"</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

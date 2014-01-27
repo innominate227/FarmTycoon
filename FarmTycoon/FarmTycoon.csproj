@@ -1,0 +1,464 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C67F5256-D6EC-4AD7-917F-7C1103614EF5}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FarmTycoon</RootNamespace>
+    <AssemblyName>FarmTycoon</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Debug\FarmTycoon.exe.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Release\FarmTycoon.exe.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug2|x86'">
+    <OutputPath>bin\Debug2\</OutputPath>
+    <PlatformTarget>x86</PlatformTarget>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug2|AnyCPU'">
+    <OutputPath>bin\Debug2\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>false</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>Key.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="NGenerics, Version=1.3.0.0, Culture=neutral, PublicKeyToken=e4b41be133ea7faf, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\NGenerics.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AI\Actions\Animal\MoveToEntranceAction.cs" />
+    <Compile Include="AI\Actions\IAction.cs" />
+    <Compile Include="AI\Actions\IActionSequence.cs" />
+    <Compile Include="AI\Actions\Worker\RestAction.cs" />
+    <Compile Include="AI\Actions\Worker\DelayAction.cs" />
+    <Compile Include="AI\Actions\Worker\WanderAction.cs" />
+    <Compile Include="AI\PathFinding\Cache\PathCache.cs" />
+    <Compile Include="AI\PathFinding\Cache\Path.cs" />
+    <Compile Include="AI\PathFinding\PathFinder\CanWalkUtil.cs" />
+    <Compile Include="AI\PathFinding\FastPathFinder.cs" />
+    <Compile Include="AI\PathFinding\Level2\Level2Edge.cs" />
+    <Compile Include="AI\PathFinding\Level2\Level2Node.cs" />
+    <Compile Include="AI\PathFinding\Level2\Cluster.cs" />
+    <Compile Include="AI\PathFinding\PathFinder\Level2PathNode.cs" />
+    <Compile Include="AI\PathFinding\PathFinder\PathFinder.cs" />
+    <Compile Include="AI\PathFinding\PathFinder\LocationPathNode.cs" />
+    <Compile Include="AI\Tasks\TaskState.cs" />
+    <Compile Include="FarmData\Info\Buildings\BreakHouseInfo.cs" />
+    <Compile Include="FarmData\Info\Components\ActionOrEventType.cs" />
+    <Compile Include="AI\Actions\Animal\AnimalWanderAction.cs" />
+    <Compile Include="AI\Actions\Animal\VisitTroughAction.cs" />
+    <Compile Include="AI\Actions\Worker\ProductionAction.cs" />
+    <Compile Include="AI\Tasks\Tasks\ProductionTask.cs" />
+    <Compile Include="FarmData\Info\Components\Conditions\InventoryConditionInfo.cs" />
+    <Compile Include="FarmData\Info\Components\Conditions\RandomConditionInfo.cs" />
+    <Compile Include="FarmData\Info\Components\Conditions\TraitConditionInfo.cs" />
+    <Compile Include="FarmData\Info\Components\Delay\DelayInfoSet.cs" />
+    <Compile Include="FarmData\Info\Components\Delay\DelayInfo.cs" />
+    <Compile Include="FarmData\Info\Components\Events\ObjectEventInfoSet.cs" />
+    <Compile Include="FarmData\Info\Components\Interfaces\IDelaysInfo.cs" />
+    <Compile Include="FarmData\Info\Components\Interfaces\IStorageBuildingInfo.cs" />
+    <Compile Include="FarmData\Info\Components\Items\SpecialTags.cs" />
+    <Compile Include="FarmData\Info\Components\Textures\TextureInfoBase.cs" />
+    <Compile Include="FarmData\Info\Components\Textures\TexturesInfoSet.cs" />
+    <Compile Include="FarmData\Info\Components\Traits\TraitInfoSet.cs" />
+    <Compile Include="FarmData\Info\Components\Traits\SpecialTraits.cs" />
+    <Compile Include="FarmData\Info\InfoIds.cs" />
+    <Compile Include="Game.cs" />
+    <Compile Include="GameObjects\Buildings\BreakHouse.cs" />
+    <Compile Include="GameObjects\Components\Delays\DelaySet.cs" />
+    <Compile Include="GameObjects\Components\WorkersInsideList.cs" />
+    <Compile Include="GameObjects\Interfaces\IHoldsWorkers.cs" />
+    <Compile Include="GameObjects\Interfaces\ITraitSet.cs" />
+    <Compile Include="GameObjects\Interfaces\IHasInfo.cs" />
+    <Compile Include="GameObjects\Interfaces\IHasInventory.cs" />
+    <Compile Include="GameObjects\Interfaces\IHasDelays.cs" />
+    <Compile Include="GameObjects\Interfaces\IHasTextureManager.cs" />
+    <Compile Include="GameObjects\Components\Textures\MobileGameTile.cs" />
+    <Compile Include="GameObjects\Components\Textures\GameTile.cs" />
+    <Compile Include="GameObjects\Land\Land.Traits.cs" />
+    <Compile Include="GameObjects\Land\Land.Tiles.cs" />
+    <Compile Include="GameObjects\Land\Land.Location.cs" />
+    <Compile Include="GameObjects\Other\Highway.cs" />
+    <Compile Include="GameObjects\Other\Crop.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SaveLoad\BinaryReaderWritterExtensions.cs" />
+    <Compile Include="Script\Interface\ScriptGameInterface.PlayerItems.cs" />
+    <Compile Include="Managers\Actions\ActiveActionList.cs" />
+    <Compile Include="Managers\Issues\Issue.cs" />
+    <Compile Include="Managers\Objects\ObjectsInLimboManager.cs" />
+    <Compile Include="SaveLoad\StateReaderV1.cs" />
+    <Compile Include="SaveLoad\StateWriterV1.cs" />
+    <Compile Include="UI\Editors\GameObject\PickLandEditor.cs" />
+    <Compile Include="UI\Editors\GameObject\PloppableEditor.cs" />
+    <Compile Include="FarmData\Info\Components\Interfaces\IPloppableInfo.cs" />
+    <Compile Include="FarmData\Info\Components\Interfaces\IEventsInfo.cs" />
+    <Compile Include="FarmData\Info\Components\Conditions\ConditionInfo.cs" />
+    <Compile Include="FarmData\Info\Components\Events\ObjectEventInfo.cs" />
+    <Compile Include="FarmData\Info\Components\Items\EquipmentType.cs" />
+    <Compile Include="FarmData\Info\Components\Interfaces\ITexturesInfo.cs" />
+    <Compile Include="FarmData\Info\Components\Textures\TempTextureInfo.cs" />
+    <Compile Include="FarmData\Info\Components\Textures\TextureInfo.cs" />
+    <Compile Include="FarmData\Info\Components\Traits\TraitInfo.Effects.cs" />
+    <Compile Include="FarmData\Info\Components\Traits\TraitQualityInfo.cs" />
+    <Compile Include="GameObjects\Animal\Animal.Events.cs" />
+    <Compile Include="GameObjects\Components\Events\ObjectEventQueue.cs" />
+    <Compile Include="GameObjects\Components\Events\ObjectEvent.cs" />
+    <Compile Include="GameObjects\Components\Events\ObjectEventSet.cs" />
+    <Compile Include="GameObjects\Interfaces\IHasEvents.cs" />
+    <Compile Include="GameObjects\Interfaces\IStorageBuilding.cs" />
+    <Compile Include="GameObjects\Components\Items\Equipment.cs" />
+    <Compile Include="Managers\OtherManagers\ItemTypePool.cs" />
+    <Compile Include="GameObjects\Components\Textures\TextureManager.cs" />
+    <Compile Include="GameObjects\Enclosures\Enclosure.cs" />
+    <Compile Include="GameObjects\Components\Enums\EnclosureType.cs" />
+    <Compile Include="GameObjects\Animal\Animal.cs" />
+    <Compile Include="GameObjects\Animal\Animal.Position.cs" />
+    <Compile Include="GameObjects\Animal\Animal.Quality.cs" />
+    <Compile Include="GameObjects\Animal\Animal.Actions.cs" />
+    <Compile Include="GameObjects\Animal\Animal.Follow.cs" />
+    <Compile Include="GameObjects\Enclosures\Pasture.cs" />
+    <Compile Include="GameObjects\Buildings\Trough.cs" />
+    <Compile Include="GameObjects\Enclosures\Field.cs" />
+    <Compile Include="FarmData\FarmData.Info.cs" />
+    <Compile Include="FarmData\Info\Buildings\TroughInfo.cs" />
+    <Compile Include="FarmData\Info\Components\Interfaces\IInventoryInfo.cs" />
+    <Compile Include="FarmData\Info\Animal\AnimalInfo.cs" />
+    <Compile Include="FarmData\Info\Enclosures\PastureInfo.cs" />
+    <Compile Include="FarmData\Info\Worker\WorkerInfo.cs" />
+    <Compile Include="FarmData\Info\Components\Interfaces\IInfo.cs" />
+    <Compile Include="GameObjects\Interfaces\IHasTraits.cs" />
+    <Compile Include="AI\Mover\ActionMover.Actions.cs" />
+    <Compile Include="AI\Mover\FollowMover.cs" />
+    <Compile Include="AI\Mover\PositionManager.cs" />
+    <Compile Include="AI\Actions\MultiLocationAction.cs" />
+    <Compile Include="Script\Interface\ScriptGameInterface.ObjectCounts.cs" />
+    <Compile Include="Script\Interface\ScriptGameInterface.ApplyItem.cs" />
+    <Compile Include="Script\Interface\ScriptGameInterface.Money.cs" />
+    <Compile Include="Script\Interface\ScriptGameInterface.UserInterface.cs" />
+    <Compile Include="Script\Interface\ScriptGameInterface.Store.cs" />
+    <Compile Include="Script\IScenarioScript.cs" />
+    <Compile Include="Script\ScriptSandbox.cs" />
+    <Compile Include="Script\ScriptPlayer.cs" />
+    <Compile Include="AI\Tasks\TaskPlanningHelpers\TaskTripPlanner.cs" />
+    <Compile Include="AI\Tasks\Tasks\FillTroughTask.cs" />
+    <Compile Include="GameObjects\Components\Traits\CompositeQuality.cs" />
+    <Compile Include="GameObjects\Components\Traits\TraitSet.cs" />
+    <Compile Include="GameObjects\Interfaces\IQuality.cs" />
+    <Compile Include="GameObjects\Components\Traits\Quality.cs" />
+    <Compile Include="FarmData\Info\Buildings\DeliveryAreaInfo.cs" />
+    <Compile Include="FarmData\Info\Components\Interfaces\ITraitsInfo.cs" />
+    <Compile Include="FarmData\Info\Land\LandInfo.cs" />
+    <Compile Include="FarmData\Info\Components\Items\ItemTypeInfo.cs" />
+    <Compile Include="GameObjects\Interfaces\IGameObject.cs" />
+    <Compile Include="GameObjects\Interfaces\IHasQuality.cs" />
+    <Compile Include="GameObjects\Interfaces\IHasActionLocation.cs" />
+    <Compile Include="GameObjects\Buildings\ProductionBuilding.cs" />
+    <Compile Include="GameObjects\Buildings\DeliveryArea.cs" />
+    <Compile Include="FarmData\Info\Plants\CropInfo.cs" />
+    <Compile Include="FarmData\Info\Components\Range.cs" />
+    <Compile Include="FarmData\Info\OtherStructures\SceneryInfo.cs" />
+    <Compile Include="FarmData\Info\Buildings\ProductionBuildingInfo.cs" />
+    <Compile Include="FarmData\Info\Buildings\StorageBuildingInfo.cs" />
+    <Compile Include="FarmData\Info\Components\Traits\TraitInfo.cs" />
+    <Compile Include="GameObjects\Buildings\StorageBuilding.cs" />
+    <Compile Include="FarmData\FarmData.cs" />
+    <Compile Include="FarmData\XmlReaderExtenstions.cs" />
+    <Compile Include="Managers\Location\Location.cs" />
+    <Compile Include="Managers\Location\LocationManager.cs" />
+    <Compile Include="Managers\Location\LocationUtils.cs" />
+    <Compile Include="Managers\Location\RelativeLocation.cs" />
+    <Compile Include="Clock\Notifications\GroupedNotification.cs" />
+    <Compile Include="Clock\Notifications\SoloNotification.cs" />
+    <Compile Include="Clock\Notifications\Notification.cs" />
+    <Compile Include="Clock\Notifications\NotificationGroup.cs" />
+    <Compile Include="UI\Editors\Generic\NullEditor.cs" />
+    <Compile Include="Managers\Actions\LastUsedValues.cs" />
+    <Compile Include="UI\Editors\GameObject\BuyLandEditor.cs" />
+    <Compile Include="UI\Editors\GameObject\SetFarmEntranceEditor.cs" />
+    <Compile Include="SaveLoad\SaveInfo.cs" />
+    <Compile Include="SaveLoad\GameFile.cs" />
+    <Compile Include="FarmData\Info\Components\Items\EquipmentInfo.cs" />
+    <Compile Include="Managers\Money\FinacialStatement.cs" />
+    <Compile Include="FarmData\Info\ScenarioInfo.cs" />
+    <Compile Include="GameObjects\Other\Scenery.cs" />
+    <Compile Include="Settings.cs" />
+    <Compile Include="AI\Actions\OneLocationAction.cs" />
+    <Compile Include="AI\Tasks\TaskPlan.cs" />
+    <Compile Include="AI\Tasks\TaskPlanningHelpers\TaskEquipmentPlanner.cs" />
+    <Compile Include="AI\Tasks\TaskPlanningHelpers\PlannedInventory.cs" />
+    <Compile Include="AI\Tasks\TaskPlanningHelpers\TaskItemDivider.cs" />
+    <Compile Include="AI\Tasks\TaskPlanningHelpers\TaskItemPlanner.cs" />
+    <Compile Include="AI\Tasks\Tasks\MoveItemsTask.cs" />
+    <Compile Include="Clock\GameThread.cs" />
+    <Compile Include="Managers\GameState.cs" />
+    <Compile Include="Managers\Issues\IssueManager.cs" />
+    <Compile Include="Managers\Money\Prices.cs" />
+    <Compile Include="Managers\OtherManagers\Weather.cs" />
+    <Compile Include="UI\Editors\GameObject\LandHeightAdjuster.cs" />
+    <Compile Include="Managers\ScenarioTools\LandHeightAssigner.cs" />
+    <Compile Include="SaveLoad\ISavable.cs" />
+    <Compile Include="UI\Editors\ActiveEditorManager.cs" />
+    <Compile Include="UI\Editors\Generic\DeleteEditor.cs" />
+    <Compile Include="UI\Editors\Generic\SelectionEditor.cs" />
+    <Compile Include="UI\Editors\Editor.cs" />
+    <Compile Include="UI\Editors\GameObject\EnclosureEntranceEditor.cs" />
+    <Compile Include="GameObjects\Components\Items\ItemType.cs" />
+    <Compile Include="GameObjects\Components\Items\Inventory.cs" />
+    <Compile Include="GameObjects\Components\Items\ItemList.cs" />
+    <Compile Include="AI\Actions\Worker\DisgardItemsAction.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AI\Tasks\ScheduledTask.cs" />
+    <Compile Include="Managers\OtherManagers\Calandar.cs" />
+    <Compile Include="Clock\ClockDriver.cs" />
+    <Compile Include="Managers\Money\Treasury.cs" />
+    <Compile Include="AI\Actions\Worker\PutItemsAction.cs" />
+    <Compile Include="AI\Actions\Worker\PlantAction.cs" />
+    <Compile Include="AI\Actions\ActionBase.cs" />
+    <Compile Include="AI\Actions\Worker\PickAction.cs" />
+    <Compile Include="AI\Actions\Worker\PlowAction.cs" />
+    <Compile Include="AI\Tasks\Task.cs" />
+    <Compile Include="Managers\Actions\MasterTaskList.cs" />
+    <Compile Include="AI\Actions\ActionSequence.cs" />
+    <Compile Include="AI\Actions\Worker\SprayAction.cs" />
+    <Compile Include="AI\Actions\Worker\GetItemsAction.cs" />
+    <Compile Include="Managers\Actions\TaskStarter.cs" />
+    <Compile Include="AI\Tasks\Tasks\BuyItemsTask.cs" />
+    <Compile Include="AI\Tasks\Tasks\SellItemsTask.cs" />
+    <Compile Include="AI\Tasks\Tasks\PickTask.cs" />
+    <Compile Include="AI\Tasks\Tasks\SprayTask.cs" />
+    <Compile Include="AI\Tasks\Tasks\PlantTask.cs" />
+    <Compile Include="AI\Tasks\Tasks\PlowTask.cs" />
+    <Compile Include="Clock\Clock.cs" />
+    <Compile Include="UI\Windows\Generated.cs" />
+    <Compile Include="UI\Windows\Items\ItemsShooterPanel.cs" />
+    <Compile Include="UI\Windows\Items\ItemCatagoriesPanel.cs" />
+    <Compile Include="UI\Windows\Items\ItemPanel.cs" />
+    <Compile Include="UI\Windows\Other\GoalWindow.cs" />
+    <Compile Include="UI\Windows\Other\LandEditorWindow.cs" />
+    <Compile Include="UI\Windows\PieMenus\BreakHousePieMenuWindow.cs" />
+    <Compile Include="UI\Windows\PieMenus\TroughPieMenuWindow.cs" />
+    <Compile Include="UI\Windows\PieMenus\ProductionBuildingPieMenuWindow.cs" />
+    <Compile Include="UI\Windows\Stats\Windows\IssuesWindow.cs" />
+    <Compile Include="UI\Windows\Tools\Toolbars\RoadTypeToolbar.cs" />
+    <Compile Include="UI\Windows\Traits\SingleTraitsWindow.cs" />
+    <Compile Include="UI\Windows\Traits\Controls\SubQualitiesPanel.cs" />
+    <Compile Include="UI\Windows\Traits\Controls\TraitsPanel.cs" />
+    <Compile Include="UI\Windows\Tasks\Tasks\Controls\UseEquipmentCheckbox.cs" />
+    <Compile Include="UI\Windows\Tasks\Tasks\SimpleTaskWindow.cs" />
+    <Compile Include="UI\Windows\Tasks\Tasks\MoveItemsTaskWindow.cs" />
+    <Compile Include="UI\Windows\Traits\SingleQualityWindow.cs" />
+    <Compile Include="UI\Windows\Traits\Controls\SubQualityPanel.cs" />
+    <Compile Include="UI\Windows\Tasks\Tasks\ProductionTaskWindow.cs" />
+    <Compile Include="UI\Windows\PieMenus\PasturePieMenuWindow.cs" />
+    <Compile Include="UI\Windows\PieMenus\FieldPieMenuWindow.cs" />
+    <Compile Include="UI\Windows\Traits\Controls\TraitPanel.cs" />
+    <Compile Include="UI\Windows\Generic\ProgressWindow.cs" />
+    <Compile Include="UI\Windows\Generic\DeleteWindow.cs" />
+    <Compile Include="UI\Windows\Generic\YesNoWindow.cs" />
+    <Compile Include="UI\Windows\Tasks\Tasks\Controls\BuildingDropbox.cs" />
+    <Compile Include="UI\Windows\Tasks\Tasks\SubWindows\TaskScheduleWindow.cs" />
+    <Compile Include="UI\Windows\Tasks\Tasks\Controls\PreferredWorkerPanel.cs" />
+    <Compile Include="UI\Windows\Tasks\Tasks\Controls\SchedulePanel.cs" />
+    <Compile Include="UI\Windows\Tasks\Tasks\SubWindows\PreferredWorkersWindow.cs" />
+    <Compile Include="UI\Windows\Generic\CostWindow.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="UI\Windows\Other\ChangeNameWindow.cs" />
+    <Compile Include="UI\Windows\Generic\MessageWindow.cs" />
+    <Compile Include="UI\Windows\Startup\BetaWarningWindow.cs" />
+    <Compile Include="UI\Windows\Tasks\TaskList\TaskPanel.cs" />
+    <Compile Include="UI\Windows\Tasks\TaskList\TasksWindow.cs" />
+    <Compile Include="UI\Windows\Stats\Windows\TreasuryWindow.cs" />
+    <Compile Include="UI\Windows\Items\InventoryWindow.cs" />
+    <Compile Include="UI\Windows\PieMenus\StorageBuildingPieMenuWindow.cs" />
+    <Compile Include="UI\Windows\Other\ScenarioSettingsWindow.cs" />
+    <Compile Include="UI\Windows\Startup\SaveGameWindow.cs" />
+    <Compile Include="UI\Windows\Startup\ScenarioListPanel.cs" />
+    <Compile Include="UI\Windows\Startup\StartWindow.cs" />
+    <Compile Include="UI\Windows\PieMenus\StorePieMenuWindow.cs" />
+    <Compile Include="UI\Windows\Tasks\Tasks\Controls\IssuesAndTimePanel.cs" />
+    <Compile Include="UI\Windows\Tasks\Tasks\Controls\NumberOfWorkersPanel.cs" />
+    <Compile Include="UI\Windows\Stats\Overlays\BottomLeftStatus.cs" />
+    <Compile Include="UI\Windows\Stats\Overlays\BottomRightStatus.cs" />
+    <Compile Include="UI\Windows\Stats\Windows\DebugToolWindow.cs" />
+    <Compile Include="UI\Windows\PieMenus\PieMenuWindow.cs" />
+    <Compile Include="UI\Windows\Stats\Overlays\IssueOverlay.cs" />
+    <Compile Include="UI\Windows\Tools\ToolBarWindow.cs" />
+    <Compile Include="UI\Windows\Tools\Toolbars\BuildingEditorCatagoryToolbar.cs" />
+    <Compile Include="UI\Windows\Tools\Toolbars\EnclosureTypeToolbar.cs" />
+    <Compile Include="UI\Windows\Tools\Toolbars\PloppableObjectEditorTypeToolBar.cs" />
+    <Compile Include="UI\Windows\Tools\Toolbars\BuyEditorSizeToolbar.cs" />
+    <Compile Include="UI\Windows\Tools\Toolbars\DeleteEditorSizeToolbar.cs" />
+    <Compile Include="UI\Windows\Tools\Toolbars\LandEditorSizeToolbar.cs" />
+    <Compile Include="UI\Windows\Tools\Toolbars\EditorToolbar.cs" />
+    <Compile Include="UI\Windows\Tools\Toolbars\RightToolbar.cs" />
+    <Compile Include="UI\Windows\WindowManager.cs" />
+    <Compile Include="UI\Windows\PieMenus\WorkerPieMenuWindow.cs" />
+    <Compile Include="UI\Windows\Stats\Windows\WorkerViewWindow.cs" />
+    <Compile Include="UI\Windows\Traits\MultiQualityWindow.cs" />
+    <Compile Include="UI\Windows\Items\ItemsPanel.cs" />
+    <Compile Include="AI\Mover\ActionMover.Movement.cs" />
+    <Compile Include="AI\Actions\IActor.cs" />
+    <Compile Include="GameObjects\Worker\Worker.Position.cs" />
+    <Compile Include="GameObjects\Worker\Worker.Equipment.cs" />
+    <Compile Include="GameObjects\Worker\Worker.Task.cs" />
+    <Compile Include="UI\Editors\GameObject\WorkerEditor.cs" />
+    <Compile Include="GameObjects\Worker\Worker.cs" />
+    <Compile Include="Managers\Actions\WorkerAssigner.cs" />
+    <Compile Include="UI\Windows\Workers\BreakHouseWindow.cs" />
+    <Compile Include="UI\Windows\Workers\ProductionWorkersWindow.cs" />
+    <Compile Include="UI\Windows\Workers\WorkerPanel.cs" />
+    <Compile Include="UI\Windows\Workers\WorkersPanel.cs" />
+    <Compile Include="UI\World\ClickInfoExtensions.cs" />
+    <Compile Include="GameObjects\Enclosures\Fence.cs" />
+    <Compile Include="UI\Editors\GameObject\EnclosureEditor.cs" />
+    <Compile Include="Managers\Location\Directions.cs" />
+    <Compile Include="Managers\Objects\MasterObjectList.cs" />
+    <Compile Include="GameObjects\Components\Textures\FixedGameTile.cs" />
+    <Compile Include="GameObjects\GameObject.cs" />
+    <Compile Include="GameObjects\Land\Land.cs" />
+    <Compile Include="GameObjects\Components\Enums\LandCorner.cs" />
+    <Compile Include="UI\Editors\GameObject\LandEditor.cs" />
+    <Compile Include="AI\PathFinding\PathFinder\PathFinderQueue.cs" />
+    <Compile Include="UI\Editors\RightAnglePathFinder.cs" />
+    <Compile Include="GameObjects\Other\Road.cs" />
+    <Compile Include="UI\Editors\GameObject\RoadEditor.cs" />
+    <Compile Include="Managers\ScenarioTools\LandBuilder.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UI\UserInterface.cs" />
+    <Compile Include="UI\World\WorldViewManager.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TycoonGraphicsLib\TycoonGraphicsLib.csproj">
+      <Project>{8B938244-0F6E-4BAF-929B-C8FEAE4D47AB}</Project>
+      <Name>TycoonGraphicsLib</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Key.snk" />
+    <None Include="Properties\app.manifest" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

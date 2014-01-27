@@ -1,0 +1,250 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Reflection;
+using System.IO;
+
+namespace SaveLoadGenerator
+{
+    public class Program
+    {
+        static int Main(string[] args)
+        {
+            string assemblyPath = Path.GetFullPath(args[0]);
+            string assemblyDirectory = Path.GetDirectoryName(assemblyPath);
+            string assemblyFile = Path.GetFileName(assemblyPath);
+            Directory.SetCurrentDirectory(assemblyDirectory);
+            string genFileName = args[1];
+
+
+            Assembly controlAssembly = System.Reflection.Assembly.LoadFrom(assemblyFile);
+                
+
+            StreamWriter writeFile = new StreamWriter(genFileName);
+
+            //write header stuff
+            writeFile.WriteLine("//This is an auto generated file to not modify this file!!!");
+            writeFile.WriteLine();
+            writeFile.WriteLine("using System;");
+            writeFile.WriteLine("using TycoonGraphicsLib;");
+            writeFile.WriteLine();
+            writeFile.WriteLine("namespace FarmTycoon");
+            writeFile.WriteLine("{");
+
+                
+            foreach (Type type in controlAssembly.GetTypes())
+            {
+                bool generateSave = false;
+
+                //ignore interfaces
+                if (type.IsInterface) { continue; }
+
+                //gernerate save if its a ISaveable
+                foreach(Type typesInterface in type.GetInterfaces())
+                {
+                    if (typesInterface.Name == "ISavable")
+                    {
+                        generateSave = true;
+                    }
+                }
+
+                //but not if it has the custom save atribute
+                foreach (Attribute fieldAttribute in type.GetCustomAttributes(false))
+                {
+                    if (fieldAttribute.GetType().Name == "CustomSaveAttribute")
+                    {
+                        generateSave = false;   
+                    }
+                }
+                    
+                //generate save and load for the type
+                if (generateSave)
+                {
+                    Console.WriteLine("Generating " + type.Name);
+
+                    string saveableClass = CreateSaveableClass(type);
+                    writeFile.WriteLine(saveableClass);
+                    writeFile.WriteLine();
+                    writeFile.WriteLine();
+                    writeFile.WriteLine();                        
+                }
+
+            }
+
+            writeFile.WriteLine("}"); //end name space
+            writeFile.Close();
+
+            
+            return 0;
+        }
+
+
+
+        private static string CreateSaveableClass(Type type)
+        {
+            //get the class name
+            string className = type.Name;
+
+            if (type.IsGenericType)
+            {
+                className = className.Replace("`1", "");
+                className += "<T>";
+            }
+
+            //TEMP
+            //if (className != "Animal") { return ""; }
+            
+            StringBuilder shallowSaveBlock = new StringBuilder();
+            StringBuilder deepSaveBlock = new StringBuilder();
+            StringBuilder notificationSaveBlock = new StringBuilder();
+            StringBuilder shallowLoadBlock = new StringBuilder();
+            StringBuilder deepLoadBlock = new StringBuilder();            
+            StringBuilder notificationLoadBlock = new StringBuilder();
+                        
+            //look at each field to find fields that need to be saved
+            foreach(FieldInfo field in type.GetFields(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public| BindingFlags.DeclaredOnly))
+            {
+                string fieldVariableName = field.Name;
+                string fieldVariableNameString = field.Name.Replace("m_","");
+                fieldVariableNameString = fieldVariableNameString.Substring(0,1).ToUpper() + fieldVariableNameString.Substring(1);
+                fieldVariableNameString = "\"" + fieldVariableNameString + "\"";
+                string fieldType = field.FieldType.Name;
+                string fieldGenericType = "";
+                string fieldGenericType2 = "";
+                if (field.FieldType.IsGenericType)
+                {
+                    fieldGenericType = field.FieldType.GetGenericArguments()[0].Name;
+                    if (field.FieldType.GetGenericArguments().Count() > 1)
+                    {
+                        fieldGenericType2 = field.FieldType.GetGenericArguments()[1].Name;
+                    }
+                    fieldType = fieldType.Replace("`1", "");
+                    fieldType += "<" + fieldGenericType + ">";
+                }
+                if (field.FieldType.IsArray)
+                {
+                    fieldType = "Array";
+                    fieldGenericType = field.FieldType.GetElementType().Name;
+                }
+                
+                
+                foreach(Attribute fieldAttribute in Attribute.GetCustomAttributes(field))
+                {
+                    if (fieldAttribute.GetType().Name == "SaveAttribute")
+                    {
+                        if (fieldType.StartsWith("List"))
+                        {
+                            shallowSaveBlock.AppendLine("\t\t\t" + "state.SetListValues<" + fieldGenericType + ">(" + fieldVariableNameString + ", " + fieldVariableName + ");");
+                            shallowLoadBlock.AppendLine("\t\t\t" + fieldVariableName + " = state.GetListValues<" + fieldGenericType + ">(" + fieldVariableNameString + ");");
+                        }
+                        else if (fieldType.StartsWith("LinkedList"))
+                        {
+                            shallowSaveBlock.AppendLine("\t\t\t" + "state.SetLinkedListValues<" + fieldGenericType + ">(" + fieldVariableNameString + ", " + fieldVariableName + ");");
+                            shallowLoadBlock.AppendLine("\t\t\t" + fieldVariableName + " = state.GetLinkedListValues<" + fieldGenericType + ">(" + fieldVariableNameString + ");");
+                        }
+                        else if (fieldType.StartsWith("HashSet"))
+                        {
+                            shallowSaveBlock.AppendLine("\t\t\t" + "state.SetHashValues<" + fieldGenericType + ">(" + fieldVariableNameString + ", " + fieldVariableName + ");");
+                            shallowLoadBlock.AppendLine("\t\t\t" + fieldVariableName + " = state.GetHashValues<" + fieldGenericType + ">(" + fieldVariableNameString + ");");
+                        }
+                        else if (fieldType.StartsWith("Dictionary"))
+                        {
+                            shallowSaveBlock.AppendLine("\t\t\t" + "state.SetDictionaryValues<" + fieldGenericType + ", " + fieldGenericType2 + ">(" + fieldVariableNameString + ", " + fieldVariableName + ");");
+                            shallowLoadBlock.AppendLine("\t\t\t" + fieldVariableName + " = state.GetDictionaryValues<" + fieldGenericType + ", " + fieldGenericType2 + ">(" + fieldVariableNameString + ");");
+                        }
+                        else if (fieldType.StartsWith("Array"))
+                        {
+                            shallowSaveBlock.AppendLine("\t\t\t" + "state.SetArrayValues<" + fieldGenericType + ">(" + fieldVariableNameString + ", " + fieldVariableName + ");");
+                            shallowLoadBlock.AppendLine("\t\t\t" + fieldVariableName + " = state.GetArrayValues<" + fieldGenericType + ">(" + fieldVariableNameString + ");");
+                        }
+                        else
+                        {
+                            shallowSaveBlock.AppendLine("\t\t\t" + "state.SetValue(" + fieldVariableNameString + ", " + fieldVariableName + ");");
+                            shallowLoadBlock.AppendLine("\t\t\t" + fieldVariableName + " = state.GetValue<" + fieldType + ">(" + fieldVariableNameString + ");");
+                        }
+                    }
+                    else if (fieldAttribute.GetType().Name == "SaveDeepAttribute")
+                    {
+                        if (fieldType.StartsWith("List"))
+                        {
+                            deepSaveBlock.AppendLine("\t\t\t" + "state.WriteSubStateList<" + fieldGenericType + ">(" + fieldVariableNameString + ", " + fieldVariableName + ");");
+                            deepLoadBlock.AppendLine("\t\t\t" + fieldVariableName + " = state.ReadSubStateList<" + fieldGenericType + ">(" + fieldVariableNameString + ");");
+                        }
+                        else if (fieldType.StartsWith("Dictionary"))
+                        {
+                            deepSaveBlock.AppendLine("\t\t\t" + "state.WriteSubStateDictionary<" + fieldGenericType + ", " + fieldGenericType2 + ">(" + fieldVariableNameString + ", " + fieldVariableName + ");");
+                            deepLoadBlock.AppendLine("\t\t\t" + fieldVariableName + " = state.ReadSubStateDictionary<" + fieldGenericType + ", " + fieldGenericType2 + ">(" + fieldVariableNameString + ");");
+
+                        }
+                        else
+                        {
+                            deepSaveBlock.AppendLine("\t\t\t" + "state.WriteSubState(" + fieldVariableNameString + ", " + fieldVariableName + ");");
+                            deepLoadBlock.AppendLine("\t\t\t" + fieldVariableName + " = state.ReadSubState<" + fieldType + ">(" + fieldVariableNameString + ");");
+                        }
+                    }
+                    else if (fieldAttribute.GetType().Name == "SaveNotificationAttribute")
+                    {
+                        string notificationMethod = (string)fieldAttribute.GetType().GetField("NotificationMethod", BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance).GetValue(fieldAttribute);
+                        notificationSaveBlock.AppendLine("\t\t\t" + "Program.GameThread.Clock.WriteNotificationState(" + fieldVariableName + ", state, " + fieldVariableNameString + ");");
+                        notificationLoadBlock.AppendLine("\t\t\t" + fieldVariableName + " = Program.GameThread.Clock.ReadNotificationState(" + notificationMethod + ", state, " + fieldVariableNameString + ");");
+                    }
+                }
+            }
+
+
+            string overrideOrVirtual = "virtual";
+            if (type.BaseType.Name != "Object")
+            {
+                overrideOrVirtual = "override";
+            }
+
+            StringBuilder classBuilder = new StringBuilder();            
+            
+            classBuilder.AppendLine("\tpublic partial class " + className);
+            classBuilder.AppendLine("\t{");
+            classBuilder.AppendLine("\t\t" + "[System.CodeDom.Compiler.GeneratedCode(\"TycoonWindowGenerator\", \"1.0\")]");
+            classBuilder.AppendLine("\t\t" + "public " + overrideOrVirtual + " void WriteState(ObjectState state)");
+            classBuilder.AppendLine("\t\t" + "{");
+                        
+            if (type.BaseType.Name != "Object")
+            {
+                classBuilder.AppendLine("\t\t\t" + "base.WriteState(state);");                
+            }
+
+            classBuilder.Append(shallowSaveBlock.ToString());
+            classBuilder.Append(deepSaveBlock.ToString());
+            classBuilder.Append(notificationSaveBlock.ToString());
+            
+            classBuilder.AppendLine("\t\t" + "}");
+            classBuilder.AppendLine("\t\t");
+            classBuilder.AppendLine("\t\t" + "[System.CodeDom.Compiler.GeneratedCode(\"TycoonWindowGenerator\", \"1.0\")]");
+            classBuilder.AppendLine("\t\t" + "public " + overrideOrVirtual + " void ReadState(ObjectState state)");
+            classBuilder.AppendLine("\t\t" + "{");
+
+            if (type.BaseType.Name != "Object")
+            {
+                classBuilder.AppendLine("\t\t\t" + "base.ReadState(state);");
+            }
+
+            classBuilder.Append(shallowLoadBlock.ToString());
+            classBuilder.Append(deepLoadBlock.ToString());
+            classBuilder.Append(notificationLoadBlock.ToString());
+
+            if (type.GetMethod("AfterLoad", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance) != null)
+            {
+                classBuilder.AppendLine("\t\t\t" + "AfterLoad();");
+            }
+
+            classBuilder.AppendLine("\t\t" + "}");
+            classBuilder.AppendLine("\t\t");
+            classBuilder.AppendLine("\t}"); //end class
+            
+
+            return classBuilder.ToString();
+        }
+
+    }
+}
+
+
